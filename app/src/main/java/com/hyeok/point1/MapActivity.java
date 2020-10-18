@@ -667,10 +667,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (str.contains("투썸") || str.contains("twosome") || str.contains("TWOSOME") ) {
             str = "TWOSOMEPLACE";
         }
-        else if (str.contains("파리") || str.contains("paris") || str.contains("PARIS") ) {
+        else if (str.contains("파리") || str.contains("paris") || str.contains("PARIS") || str.contains("HAPPY") ) {
             str = "HAPPYPOINT";
         }
-        else if (str.contains("뚜레") || str.contains("tous") || str.contains("TOUS") ) {
+        else if (str.contains("뚜레") || str.contains("tous") || str.contains("TOUS") || str.contains("CJ") ) {
             str = "CJONE";
         }
         else if (str.contains("쥐에스") || str.contains("gs") || str.contains("GS") ) {

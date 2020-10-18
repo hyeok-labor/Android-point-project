@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="false"
@@ -31,7 +33,6 @@
         <activity android:name=".EditActivity" />
         <activity android:name=".SaveActivity" />
         <activity android:name=".ChooseActivity" />
-        <activity android:name=".ShowBarcodeActivity" />
         <activity android:name=".ListViewItem"></activity>
 
     </application>
