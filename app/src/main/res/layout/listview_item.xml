@@ -23,7 +23,7 @@
             android:fontFamily="casual"
             android:gravity="center"
             android:text="New Text"
-            android:textColor="#FFB300"
+            android:textColor="@color/design_default_color_on_secondary"
             android:textSize="23dp" />
 
 

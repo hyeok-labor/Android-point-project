@@ -76,36 +76,56 @@ public class EditActivity extends AppCompatActivity {
             getSelectedData(NameOfStore);
         }
     }
-
+    private boolean walletMode = false;
     public void getData(View view){     // DB에 저장된 모든 데이타를 불러옴
         // deleteMode 활성화를 위한 버튼 생성
         Button Button_Delete = (Button) findViewById(R.id.Button_Delete);
+        Button Button_showImagesBtn = (Button) findViewById(R.id.showImagesBtn);
+        if( walletMode == false){
+            try {
+                objectRvAdapter = new RVAdapter(objectDatabaseHandler.getAllImagesData());
+                objectRecyclerView.setHasFixedSize(true);
 
-        try {
-            objectRvAdapter = new RVAdapter(objectDatabaseHandler.getAllImagesData());
+                objectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                objectRecyclerView.setAdapter(objectRvAdapter);
+
+                // 클릭된 object 값 반환 ==> 삭제모드 활성화 시
+                objectRvAdapter.setOnItemClickListener(new RVAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) { // getPosition() 을 통해 Data Index를 얻는다.
+                        Toast.makeText(EditActivity.this, "data:"+objectRvAdapter.getPosition(), Toast.LENGTH_SHORT).show();
+
+                        if(deleteMode==true){
+                            objectModelClassList = objectDatabaseHandler.getNameArray();            // get list which stored only image names
+                            deleteImage(objectModelClassList.get(objectRvAdapter.getPosition()));   // get imagename from position index then delete
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, e.getMessage());
+            }
+
+            // 지갑이 열리면 삭제버튼 Visible
+            Button_Delete.setVisibility(View.VISIBLE);
+            //Button_Delete.setVisibility(Button_Delete.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            // 지갑버튼 설정
+            Button_showImagesBtn.setText("지갑닫기");
+            walletMode = true;
+        }
+        else{
+            Button_showImagesBtn.setText("지갑열기");
+            objectRvAdapter = new RVAdapter(objectDatabaseHandler.getSelectdedImagesData(""));
             objectRecyclerView.setHasFixedSize(true);
 
             objectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             objectRecyclerView.setAdapter(objectRvAdapter);
-
-            // 클릭된 object 값 반환
-            objectRvAdapter.setOnItemClickListener(new RVAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int position) { // getPosition() 을 통해 Data Index를 얻는다.
-                    Toast.makeText(EditActivity.this, "data:"+objectRvAdapter.getPosition(), Toast.LENGTH_SHORT).show();
-
-                    if(deleteMode==true){
-                        objectModelClassList = objectDatabaseHandler.getNameArray();            // get list which stored only imagenames
-                        deleteImage(objectModelClassList.get(objectRvAdapter.getPosition()));   // get imagename from position index then delete
-                    }
-                }
-            });
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.d(TAG, e.getMessage());
+            // 지갑이 열리면 삭제버튼 Invisible
+            Button_Delete.setVisibility(View.GONE);
+            //Button_Delete.setVisibility(Button_Delete.getVisibility() == View.VISIBLE ? View.VISIBLE : View.GONE);
+            walletMode = false;
         }
-        // 지갑이 열리면 버튼 Visible
-        Button_Delete.setVisibility(Button_Delete.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+
     }
 
     // MainActivity에서 검색 후 저장된 텍스트를 매개변수

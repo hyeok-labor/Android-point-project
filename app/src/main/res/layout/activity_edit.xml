@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="?attr/colorAccent"
     tools:context=".EditActivity">
 
     <TextView
@@ -67,7 +67,7 @@
         <Button
             android:id="@+id/showImagesBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@android:drawable/toast_frame"
             android:onClick="getData"
             android:text="지갑열기"
@@ -79,7 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/showImagesBtn"
-            android:layout_margin="2dp" />
+            android:layout_margin="1dp" />
+
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.Guideline
